@@ -1,12 +1,13 @@
 package yakit.clientservlet;
 
 import java.io.IOException;
-import java.util.Enumeration;
+//import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 import kdseg.ds.KDSegDataStructure;
 import yakradio.FactoryManager;
@@ -33,17 +34,18 @@ public class YakitClientServlet extends HttpServlet {
 		/*
 		 * Initialize Yakit Radio
 		 */
-		System.out.println("Recieved Yakit client Request "+request.getQueryString());
+		//System.out.println("Recieved Yakit client Request "+request.getQueryString());
 		JSONInvocationEngine jsonEngine = (JSONInvocationEngine) this.getServletContext().getAttribute("jsonengine");
-		Enumeration servlets = this.getServletContext().getAttributeNames();
+		//Enumeration servlets = this.getServletContext().getAttributeNames();
 		if(jsonEngine==null){
-			System.out.println("Hopefully won't happen");
-			jsonEngine = JSONInvocationEngine.getInstance();
+			//System.out.println("Hopefully won't happen");
+			jsonEngine = new JSONInvocationEngine();
 			this.getServletContext().setAttribute("jsonengine", jsonEngine);
 		}
 		
 		KDSegDataStructure structure = (KDSegDataStructure) this.getServletContext().getAttribute("kddatastructure");
 		if(structure==null){
+			//System.out.println("Hopefully won't happen again");
 			structure = KDSegDataStructure.getInstance();
 			this.getServletContext().setAttribute("kddatastructure", structure);
 		}

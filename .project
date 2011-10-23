@@ -3,8 +3,6 @@
 	<name>YakitBeaconClient</name>
 	<comment></comment>
 	<projects>
-		<project>KDTimeSegment</project>
-		<project>YakitBeaconEditor</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

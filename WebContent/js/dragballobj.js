@@ -10,6 +10,9 @@ function createdragballobj(map){
 	dbobj.range=10;
 	dbobj.latitude=48.4633;
 	dbobj.longitude=-123.3133;
+	dbobj.starttime=0;
+	dbobj.stoptime=(new Date()).getTime();
+	dbobj.sessionkey=null;
 	dbobj.state=0;
 	dbobj.initialize=function(){
 		//alert("drag ball init map");
@@ -41,6 +44,12 @@ function createdragballobj(map){
 			//alert("click occured map");
 			if(dbobj.state==1){
 				dbobj.map.circle.move(event.latLng);
+				/*
+				 * need to update ball position
+				 */
+				dbobj.latitude=event.latLng.lat();
+				dbobj.longitude=event.latLng.lng();
+				dbobj.sendjsonmessage(createjsonupdateuser(dbobj.sessionkey,dbobj.latitude,dbobj.longitude,dbobj.starttime,dbobj.stoptime));
 			}
 			
 		});
@@ -52,10 +61,32 @@ function createdragballobj(map){
 			
 		});*/
 		//update backend position in datastructure
-		dbobj.sendjsonmessage(createjsonregisteruser(dbobj.latitude,dbobj.longitude));
+		dbobj.sendjsonmessage(createjsonregisteruser(dbobj.latitude,dbobj.longitude,dbobj.starttime,dbobj.stoptime));
+		//dbobj.state=1;
 	};
 	dbobj.handlejsonmessage=function(jsonmsg){
-		alert("received "+jsonmsg);
+		//alert("received "+jsonmsg);
+		var jsmsg = JSON.parse(jsonmsg);
+		if(jsmsg.msgtype=="registration"){
+			//dbobj.state=2;
+			//automate the retieval of messages from msginbox to populate trays
+			//alert("setup timer 2");
+			dbobj.sessionkey=jsmsg.subscriberkey;
+			dbobj.timer=setTimeout("objectstore['dragball'].messageretreival()",4000);
+		}else if(jsmsg.msgtype=="SubscriberGetMessagesReturn"){
+			//populate trays tray object is subscribed to this one, use notify with
+			var messagelistobj = jsmsg.msglist;
+			for(var i=0;i<messagelistobj.length;i++){
+				//alert("update list with new message "+messagelistobj[i].message+" from beacon "+messagelistobj[i].beaconid);
+				var ev = createevent(messagelistobj[i].beaconid,messagelistobj[i].message);
+				dbobj.notify(ev);
+			}
+		}
+	};
+	dbobj.messageretreival=function(){
+		dbobj.sendjsonmessage(createjsongetusermessaged(dbobj.sessionkey));
+		//if(dbobj.state==2)
+			dbobj.timer=setTimeout("objectstore['dragball'].messageretreival()",4000);
 	};
 	return dbobj;
 }

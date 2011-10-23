@@ -23,6 +23,7 @@ function initialize(){
 	
 	//setup dragball circle
 	var dragballobj = createdragballobj(googlemap);
+	objectstore['dragball']=dragballobj;
 	addpublishersubscriber(dragballobj);
 	addtransport(dragballobj);
 	dragballobj.initialize();

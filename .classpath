@@ -13,7 +13,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/YakitBeaconEditor"/>
-	<classpathentry kind="lib" path="/YakitBeaconEditor/build/classes"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/Apache Software Foundation/Tomcat 6.0/lib/yakitpubsub.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
