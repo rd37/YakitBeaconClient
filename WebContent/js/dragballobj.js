@@ -33,6 +33,10 @@ function createdragballobj(map){
 				dbobj.state=1;
 			}else if(dbobj.state==1){
 				dbobj.state=0;
+				dbobj.latitude=event.latLng.lat();
+				dbobj.longitude=event.latLng.lng();
+				dbobj.sendjsonmessage(createjsonupdateuser(dbobj.sessionkey,dbobj.latitude,dbobj.longitude,dbobj.starttime,dbobj.stoptime));
+			
 			}
 			//document.getElementById("tray_1_1").innerHTML="aft dbobj state "+dbobj.state;
 		});
@@ -47,19 +51,13 @@ function createdragballobj(map){
 				/*
 				 * need to update ball position
 				 */
-				dbobj.latitude=event.latLng.lat();
-				dbobj.longitude=event.latLng.lng();
-				dbobj.sendjsonmessage(createjsonupdateuser(dbobj.sessionkey,dbobj.latitude,dbobj.longitude,dbobj.starttime,dbobj.stoptime));
+				//dbobj.latitude=event.latLng.lat();
+				//dbobj.longitude=event.latLng.lng();
+				//dbobj.sendjsonmessage(createjsonupdateuser(dbobj.sessionkey,dbobj.latitude,dbobj.longitude,dbobj.starttime,dbobj.stoptime));
 			}
 			
 		});
-		/*google.maps.event.addListener(dbobj.map.circle.circle,'mousemove',function(event){
-			//alert("clicl occured bf"+beacon.mapstate);
-			if(dbobj.state==1){
-				dbobj.map.circle.move(event.latLng);
-			}
-			
-		});*/
+		
 		//update backend position in datastructure
 		dbobj.sendjsonmessage(createjsonregisteruser(dbobj.latitude,dbobj.longitude,dbobj.starttime,dbobj.stoptime));
 		//dbobj.state=1;

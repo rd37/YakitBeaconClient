@@ -13,6 +13,7 @@
 <title>YaKit Client</title>
 </head>
 <body onload="initialize()">
+<form id="clienform">
 <table>
 <tr><td>
 	<table>
@@ -29,18 +30,19 @@
 		<td><table><tr><td><div onmouseover="objectstore['clientcs'].showselection()" ><img src='images/verticlebar.jpg' width='10px' height='175px'/></div></td><td><div id="selectionconfiguration" style="visibility:hidden;display:none">
 			<table>
 			<tr><td>
-			<input onclick="objectstore['clientcs'].showbeacons()" type="checkbox"/>show beacons
+			<input id="showusers" onclick="objectstore['clientcs'].showusers()" type="checkbox"/>show other users
 			</td></tr>
 			<tr><td>
-			<input onclick="objectstore['clientcs'].autotrack()" type="checkbox"/>auto track with GPS
+			<input id="showbeacons" onclick="objectstore['clientcs'].showbeacons()" type="checkbox"/>show beacons
 			</td></tr>
 			<tr><td>
-			<input onclick="objectstore['clientcs'].showusers()" type="checkbox"/>show other users
+			<input id="autotrackgps" onclick="objectstore['clientcs'].autotrack()" type="checkbox"/>auto track with GPS
 			</td></tr>
 			</table>
 		</div></td></tr></table></td>
 	</tr></table>
 </td></tr>
 </table>
+</form>
 </body>
 </html>

@@ -3,6 +3,7 @@
 *
 */
 var objectstore=new Array();
+
 var keycounter=0;
 
 function initialize(){
@@ -12,6 +13,7 @@ function initialize(){
 	var clientcontrolsystem = createclientcontrolsystem();
 	objectstore['clientcs']=clientcontrolsystem;
 	addpublishersubscriber(clientcontrolsystem);
+	addtransport(clientcontrolsystem);
 	
 	/*
 	 * setup map

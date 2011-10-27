@@ -5,12 +5,16 @@
 
 function creategooglemap(){
 	var map=new Object();
+	map.usercircles = new Array();
 	map.id=null;
 	map.circle=null;
 	map.googlemap=null;
 	map.latlng=null;
 	map.mapOptions=null;
+	map.bounds=null;
 	map.beaconmanager=null;
+	map.starttime=0;
+	map.stoptime=null;
 	//parameters
 	map.htmldiv=null;
 	map.htmllistdiv=null;
@@ -38,6 +42,20 @@ function creategooglemap(){
 		map.mapOptions = {zoom: 15, center: map.latlng, mapTypeId: google.maps.MapTypeId.ROADMAP};     
 		map.googlemap = new google.maps.Map(divid, map.mapOptions);
 		//alert("map showing?");
+		google.maps.event.addListener(map.googlemap, 'bounds_changed', function() {          map.bounds = map.googlemap.getBounds(); } );
+		map.stoptime=(new Date()).getTime();
+	};
+	map.createusrgooglecircle=function(rad,lat,lng){
+		var circleobj = new Object();
+		//alert("new gogole cirlce");
+		circleobj.latlng = new google.maps.LatLng(lat,lng);
+		circleobj.circleoptions={center:circleobj.latlng,fillOpacity:0.2,strokeOpacity:0.4,fillColor:"#FF0000",map:map.googlemap,radius:rad,strokeWeight:1};
+		//alert("cirlce half wasy");
+		circleobj.circle = new google.maps.Circle(circleobj.circleoptions);
+		//alert("done");
+		circleobj.radius=rad;
+		circleobj.map=map.googlemap;
+		return circleobj;
 	};
 	map.createnewgooglecircle=function(rad,lat,lng){
 		var circleobj = new Object();
